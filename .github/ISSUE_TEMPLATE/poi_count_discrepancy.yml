@@ -1,9 +1,10 @@
 name: POI Count Discrepancy Report
 description: Report differences between our POI counts and brand's actual locations
-title: 'POI Count: ${{ inputs.brand-name }}'
+title: 'POI Count: (brand name)'
 labels: ["data-discrepancy"]
 assignees: 
   - Ebadm
+projects: ["huq-industries/22"]
 body:
   - type: markdown
     attributes:
@@ -14,7 +15,7 @@ body:
     id: brand-name
     attributes:
       label: Brand Name
-      description: 'This will be used in the issue title as POI Count: Brand Name'
+      description: 'This should be used in the title as POI Count: Brand Name'
       placeholder: e.g., McDonald's
     validations:
       required: true
