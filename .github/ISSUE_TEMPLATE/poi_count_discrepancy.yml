@@ -14,7 +14,7 @@ body:
     id: brand-name
     attributes:
       label: Brand Name
-      description: This will be used in the issue title as "POI Count: Brand Name"
+      description: 'This will be used in the issue title as POI Count: Brand Name'
       placeholder: e.g., McDonald's
     validations:
       required: true
