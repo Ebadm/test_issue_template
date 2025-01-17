@@ -35,27 +35,30 @@ body:
     validations:
       required: false
 
-  - type: markdown
+  - type: input
+    id: our-count
     attributes:
-      value: |
-        ### Count Discrepancies
-        Please provide counts per region/country. Add additional rows if needed.
-        
-        | Region/Country | Our Count | Brand's Count | Notes |
-        |---------------|-----------|---------------|-------|
-        | GB | 1500 | 1600 | Missing Scotland stores |
-        
-        Copy the above format to add more rows if needed.
+      label: Our Count
+      description: Enter our current POI count
+      placeholder: e.g., 1500
+    validations:
+      required: true
 
-  - type: textarea
-    id: count-table
+  - type: input
+    id: brand-count
     attributes:
-      label: Count Details
-      description: Enter the count details in table format as shown above
-      placeholder: |
-        | Region/Country | Our Count | Brand's Count | Notes |
-        |---------------|-----------|---------------|-------|
-        | GB | 1500 | 1600 | Missing Scotland stores |
+      label: Brand's Count
+      description: Enter brand's official count
+      placeholder: e.g., 1600
+    validations:
+      required: true
+
+  - type: input
+    id: region
+    attributes:
+      label: Region/Country
+      description: Enter the scope of this count discrepancy (e.g., Worldwide, GB, SA, US)
+      placeholder: e.g., Worldwide, GB, US
     validations:
       required: true
 
