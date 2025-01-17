@@ -4,7 +4,7 @@ title: 'POI Count: (brand name)'
 labels: ["data-discrepancy"]
 assignees: 
   - Ebadm
-projects: ["huq-industries/22"]
+projects: ["Ebadm/2"]
 body:
   - type: markdown
     attributes:
