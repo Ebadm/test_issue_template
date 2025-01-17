@@ -1,0 +1,94 @@
+name: POI Brand Missing Report
+description: Report missing brands that should be added to our database
+title: 'Missing Brand: (brand name)'
+labels: ["missing-brand"]
+assignees: 
+  - Ebadm
+projects: ["huq-industries/22"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this missing brand.
+        
+  - type: input
+    id: brand-name
+    attributes:
+      label: Brand Name
+      description: 'Name of the brand that is missing from our database'
+      placeholder: e.g., Starbucks
+    validations:
+      required: true
+
+  - type: input
+    id: wikidata
+    attributes:
+      label: Wikidata ID
+      description: Enter the Wikidata ID from www.wikidata.org
+      placeholder: e.g., Q38076
+    validations:
+      required: false
+
+  - type: input
+    id: store-locator
+    attributes:
+      label: Store Locator URL
+      description: Enter brand's official store locator page URL
+      placeholder: https://www.example.com/store-locator
+    validations:
+      required: false
+
+  - type: input
+    id: brand-count
+    attributes:
+      label: Brand's Count
+      description: Enter brand's official location count (Could be an estimate)
+      placeholder: e.g., 1600
+    validations:
+      required: true
+
+  - type: input
+    id: region
+    attributes:
+      label: Region/Country
+      description: Enter the scope where brand operates (e.g., Worldwide, GB, SA, US)
+      placeholder: e.g., Worldwide, GB, US
+    validations:
+      required: true
+
+  - type: input
+    id: date-checked
+    attributes:
+      label: Date Checked
+      description: When was this information verified?
+      placeholder: YYYY-MM-DD
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority Level
+      options:
+        - High
+        - Medium
+        - Low
+    validations:
+      required: true
+
+  - type: textarea
+    id: competitors
+    attributes:
+      label: Similar Competitor Brands
+      description: List any similar brands that we already have in our database
+      placeholder: |
+        - Competitor 1
+        - Competitor 2
+        - ...
+
+  - type: textarea
+    id: additional-notes
+    attributes:
+      label: Additional Notes
+      description: Add any additional information about this brand
+      placeholder: Any other relevant information such as brand category, importance, etc.
