@@ -33,37 +33,29 @@ body:
       description: Enter brand's official store locator page URL
       placeholder: https://www.example.com/store-locator
     validations:
-      required: true
+      required: false
 
-  - type: input
-    id: our-count
+  - type: markdown
     attributes:
-      label: Our Count
-      description: Enter our current POI count
-      placeholder: e.g., 1500
-    validations:
-      required: true
+      value: |
+        ### Count Discrepancies
+        Please provide counts per region/country. Add additional rows if needed.
+        
+        | Region/Country | Our Count | Brand's Count | Notes |
+        |---------------|-----------|---------------|-------|
+        | GB | 1500 | 1600 | Missing Scotland stores |
+        
+        Copy the above format to add more rows if needed.
 
-  - type: input
-    id: brand-count
+  - type: textarea
+    id: count-table
     attributes:
-      label: Brand's Count
-      description: Enter brand's official count
-      placeholder: e.g., 1600
-    validations:
-      required: true
-
-  - type: dropdown
-    id: region
-    attributes:
-      label: Region/Country
-      description: Select the scope of this count discrepancy
-      options:
-        - Worldwide
-        - North America
-        - Europe
-        - Asia
-        - Other (specify in notes)
+      label: Count Details
+      description: Enter the count details in table format as shown above
+      placeholder: |
+        | Region/Country | Our Count | Brand's Count | Notes |
+        |---------------|-----------|---------------|-------|
+        | GB | 1500 | 1600 | Missing Scotland stores |
     validations:
       required: true
 
@@ -92,7 +84,6 @@ body:
       label: Source of Brand Count
       options:
         - Store locator
-        - Annual report
         - Direct from brand
         - Other (specify in notes)
     validations:
