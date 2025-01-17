@@ -1,40 +1,124 @@
----
 name: POI Count Discrepancy Report
-about: Report differences between our POI counts and brand's actual locations
-title: 'POI Count: [Brand Name]'
-labels: 'data-discrepancy'
-assignees: ''
+description: Report differences between our POI counts and brand's actual locations
+title: "POI Count: [Brand Name]"
+labels: ["data-discrepancy"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this POI count discrepancy.
+        
+  - type: input
+    id: brand-name
+    attributes:
+      label: Brand Name
+      placeholder: e.g., McDonald's
+    validations:
+      required: true
 
----
+  - type: input
+    id: wikidata
+    attributes:
+      label: Wikidata ID
+      description: Enter the Wikidata ID from www.wikidata.org
+      placeholder: e.g., Q38076
+    validations:
+      required: true
 
-### Brand Information:
-- **Brand Name**: [Enter brand name]
-- **Wikidata ID**: [Enter Wikidata ID from www.wikidata.org]
-- **Store Locator URL**: [Enter brand's official store locator page URL]
+  - type: input
+    id: store-locator
+    attributes:
+      label: Store Locator URL
+      description: Enter brand's official store locator page URL
+      placeholder: https://www.example.com/store-locator
+    validations:
+      required: true
 
-### Count Discrepancy:
-- **Our Count**: [Enter our current POI count]
-- **Brand's Count**: [Enter brand's official count]
-- **Region/Country**: [Enter specific country/region or "Worldwide"]
-- **Date Checked**: [Enter date of verification]
+  - type: input
+    id: our-count
+    attributes:
+      label: Our Count
+      description: Enter our current POI count
+      placeholder: e.g., 1500
+    validations:
+      required: true
 
-### Missing Competitor Brands:
-List any competitor brands that should be added to our database:
-- [Competitor 1]
-- [Competitor 2]
-- ...
+  - type: input
+    id: brand-count
+    attributes:
+      label: Brand's Count
+      description: Enter brand's official count
+      placeholder: e.g., 1600
+    validations:
+      required: true
 
-### Additional Context:
-- **Source of Brand Count**: [e.g., Store locator, Annual report, Direct from brand]
-- **Data Quality Issues**: [Any specific data quality issues noticed]
-- **Priority Level**: [High/Medium/Low]
+  - type: dropdown
+    id: region
+    attributes:
+      label: Region/Country
+      description: Select the scope of this count discrepancy
+      options:
+        - Worldwide
+        - North America
+        - Europe
+        - Asia
+        - Other (specify in notes)
+    validations:
+      required: true
 
-### Notes:
-[Add any additional information, context, or specific concerns]
+  - type: input
+    id: date-checked
+    attributes:
+      label: Date Checked
+      description: When was this discrepancy verified?
+      placeholder: YYYY-MM-DD
+    validations:
+      required: true
 
-<!-- 
-Tips:
-- Please provide specific URLs or documents for verification when possible
-- If count varies by region, please break down the numbers by country/region
-- Include any relevant screenshots or data exports if available
--->
+  - type: textarea
+    id: competitors
+    attributes:
+      label: Missing Competitor Brands
+      description: List any competitor brands that should be added to our database
+      placeholder: |
+        - Competitor 1
+        - Competitor 2
+        - ...
+
+  - type: dropdown
+    id: source
+    attributes:
+      label: Source of Brand Count
+      options:
+        - Store locator
+        - Annual report
+        - Direct from brand
+        - Other (specify in notes)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority Level
+      options:
+        - High
+        - Medium
+        - Low
+    validations:
+      required: true
+
+  - type: textarea
+    id: quality-issues
+    attributes:
+      label: Data Quality Issues
+      description: Describe any specific data quality issues noticed
+      placeholder: e.g., Missing addresses, incorrect phone numbers, etc.
+
+  - type: textarea
+    id: additional-notes
+    attributes:
+      label: Additional Notes
+      description: Add any additional information, context, or specific concerns
+      placeholder: Any other relevant information...
