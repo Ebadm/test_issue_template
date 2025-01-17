@@ -1,6 +1,6 @@
 name: POI Count Discrepancy Report
 description: Report differences between our POI counts and brand's actual locations
-title: 'POI Count: {brand}'
+title: 'POI Count: '
 labels: ["data-discrepancy"]
 assignees: 
   - Ebadm
@@ -14,6 +14,7 @@ body:
     id: brand-name
     attributes:
       label: Brand Name
+      description: This will be used in the issue title as "POI Count: [Brand Name]"
       placeholder: e.g., McDonald's
     validations:
       required: true
@@ -85,7 +86,7 @@ body:
   - type: dropdown
     id: source
     attributes:
-      label: Source of Brand Count
+      label: Source of New Brand Count
       options:
         - Store locator
         - Direct from brand
