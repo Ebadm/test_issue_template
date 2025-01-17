@@ -115,4 +115,4 @@ body:
     attributes:
       label: Additional Notes
       description: Add any additional information, context, or specific concerns
-      placeholder: Any other relevant information...
+      placeholder: Any other relevant information...such as country specific counts
