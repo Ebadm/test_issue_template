@@ -1,8 +1,9 @@
 name: POI Count Discrepancy Report
 description: Report differences between our POI counts and brand's actual locations
-title: "POI Count: [Brand Name]"
+title: POI Count: [Brand Name]
 labels: ["data-discrepancy"]
-assignees: []
+assignees: 
+  - Ebadm
 body:
   - type: markdown
     attributes:
