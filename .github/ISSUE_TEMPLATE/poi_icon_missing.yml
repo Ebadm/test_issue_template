@@ -1,0 +1,46 @@
+name: POI Icon Missing Report
+description: Report missing icons for brands in our database
+title: 'Missing Icon: (brand name)'
+labels: ["missing-icon"]
+assignees: 
+  - Ebadm
+projects: ["huq-industries/22"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this missing icon.
+        
+  - type: input
+    id: brand-name
+    attributes:
+      label: Brand Name
+      description: 'Name of the brand that is missing an icon'
+      placeholder: e.g., Nike
+    validations:
+      required: true
+
+  - type: input
+    id: icon-url
+    attributes:
+      label: Suggested Icon URL
+      description: 'URL of the icon you would like to use (preferably SVG or high-quality PNG)'
+      placeholder: https://example.com/path/to/icon.svg
+    validations:
+      required: true
+
+  - type: input
+    id: wikidata
+    attributes:
+      label: Wikidata ID
+      description: Enter the Wikidata ID from www.wikidata.org
+      placeholder: e.g., Q38076
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-notes
+    attributes:
+      label: Additional Notes
+      description: Add any additional information about this icon request
+      placeholder: Any other relevant information about the icon or brand
