@@ -120,11 +120,15 @@ jobs:
 
           # Create or update CHANGELOG.md
           if [ ! -f CHANGELOG.md ]; then
-            touch CHANGELOG.md
+            echo -e "$changelog" > CHANGELOG.md
+          else
+            # Save existing content to temp file
+            cat CHANGELOG.md > temp.md
+            # Write new content followed by existing content
+            echo -e "$changelog" > CHANGELOG.md
+            cat temp.md >> CHANGELOG.md
+            rm temp.md
           fi
-
-          # Prepend the new changelog to the existing CHANGELOG.md
-          sed -i "1s/^/$changelog\n/" CHANGELOG.md
 
           # Debug: Show final CHANGELOG.md content
           echo "Final CHANGELOG.md content:"
