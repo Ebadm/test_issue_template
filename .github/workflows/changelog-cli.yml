@@ -1,0 +1,130 @@
+name: Generate Changelog on PR to Main
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+
+# Add these permissions
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  changelog:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Get Version from Constants
+        id: get_version
+        run: |
+          npm install -g ts-node typescript @types/node
+          
+          # Create tsconfig.json
+          echo '{
+            "compilerOptions": {
+              "module": "commonjs",
+              "esModuleInterop": true,
+              "allowJs": true,
+              "resolveJsonModule": true,
+              "moduleResolution": "node",
+              "types": ["node"]
+            }
+          }' > tsconfig.json
+          
+          # Create getVersion.ts with a fallback version
+          echo '/// <reference types="node" />
+          try {
+            const { getLatestVersion } = require("./src/constants/versionHistory");
+            process.stdout.write("v" + getLatestVersion());
+          } catch (error) {
+            console.error("Error loading version:", error);
+            // Fallback to a default version or exit
+            process.stdout.write("v0.0.1");  // You can change this default version
+          }' > getVersion.ts
+          
+          VERSION=$(ts-node --prefer-ts-exts --files getVersion.ts)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          rm getVersion.ts tsconfig.json
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+      - name: Get commits between staging and main
+        run: |
+          # Fetch both staging and main branches
+          git fetch origin main
+          git fetch origin staging
+
+          # Debug: Show all commits between main and staging
+          echo "All commits between main and staging:"
+          git log --oneline origin/main..origin/staging
+          
+          # Get commit logs that are present in staging but not in main (new commits in staging)
+          commits=$(git log --oneline origin/main..origin/staging --grep="feat:\|fix:")
+
+          # Debug: Show matched commits
+          echo "Matched commits:"
+          echo "$commits"
+
+          # Check if there are any relevant commits
+          if [ -z "$commits" ]; then
+            echo "No relevant commits found."
+            exit 0
+          fi
+
+          # Initialize changelog with the version header using the version from constants
+          changelog="### Changelog - ${{ steps.get_version.outputs.version }}\n\n"
+
+          # Separate commits into Features and Fixes
+          features=""
+          fixes=""
+
+          # Loop through each commit and categorize
+          while read -r commit; do
+            message=$(echo "$commit" | sed -E 's/^[a-f0-9]{7} //')
+            if [[ "$message" =~ ^feat: ]]; then
+              features="$features- $message\n"
+            elif [[ "$message" =~ ^fix: ]]; then
+              fixes="$fixes- $message\n"
+            fi
+          done <<< "$commits"
+
+          # Add the Features section if there are any feature commits
+          if [ -n "$features" ]; then
+            changelog="$changelog## Features\n$features\n"
+          fi
+
+          # Add the Fixes section if there are any fix commits
+          if [ -n "$fixes" ]; then
+            changelog="$changelog## Fixes\n$fixes\n"
+          fi
+
+          # Create or update CHANGELOG.md
+          if [ ! -f CHANGELOG.md ]; then
+            touch CHANGELOG.md
+          fi
+
+          # Prepend the new changelog to the existing CHANGELOG.md
+          sed -i "1s/^/$changelog\n/" CHANGELOG.md
+
+      - name: Commit and push changes
+        run: |
+          # Check if there are changes in the changelog
+          git diff --exit-code CHANGELOG.md || git commit -am "Update changelog for ${{ steps.get_version.outputs.version }}"
+          
+          # Push the changes to the pull request branch
+          git push origin HEAD:refs/heads/${GITHUB_REF##*/}
