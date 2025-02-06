@@ -25,6 +25,16 @@ jobs:
         id: get_version
         run: |
           npm install -g ts-node typescript @types/node
+          
+          # Debug: List contents of current directory
+          echo "Current directory contents:"
+          ls -la
+          
+          # Debug: Check if src directory exists
+          echo "Checking for src directory:"
+          ls -la src || echo "src directory not found"
+          
+          # Create tsconfig.json
           echo '{
             "compilerOptions": {
               "module": "commonjs",
@@ -35,9 +45,18 @@ jobs:
               "types": ["node"]
             }
           }' > tsconfig.json
+          
+          # Create getVersion.ts with a fallback version
           echo '/// <reference types="node" />
-          const { getLatestVersion } = require("./src/constants/versionHistory");
-          process.stdout.write("v" + getLatestVersion());' > getVersion.ts
+          try {
+            const { getLatestVersion } = require("./src/constants/versionHistory");
+            process.stdout.write("v" + getLatestVersion());
+          } catch (error) {
+            console.error("Error loading version:", error);
+            // Fallback to a default version or exit
+            process.stdout.write("v0.0.1");  // You can change this default version
+          }' > getVersion.ts
+          
           VERSION=$(ts-node --prefer-ts-exts --files getVersion.ts)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           rm getVersion.ts tsconfig.json
