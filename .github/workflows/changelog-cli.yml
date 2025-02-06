@@ -57,6 +57,11 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           rm getVersion.ts tsconfig.json
 
+      - name: Set up Git
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
       - name: Get commits between staging and main
         run: |
           git fetch origin main
