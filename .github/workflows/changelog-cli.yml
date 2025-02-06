@@ -26,14 +26,6 @@ jobs:
         run: |
           npm install -g ts-node typescript @types/node
           
-          # Debug: List contents of current directory
-          echo "Current directory contents:"
-          ls -la
-          
-          # Debug: Check if src directory exists
-          echo "Checking for src directory:"
-          ls -la src || echo "src directory not found"
-          
           # Create tsconfig.json
           echo '{
             "compilerOptions": {
@@ -72,8 +64,16 @@ jobs:
           git fetch origin main
           git fetch origin staging
 
+          # Debug: Show all commits between main and staging
+          echo "All commits between main and staging:"
+          git log --oneline origin/main..origin/staging
+          
           # Get commit logs that are present in staging but not in main (new commits in staging)
-          commits=$(git log --oneline origin/main..origin/staging --grep="^(feat|fix):")
+          commits=$(git log --oneline origin/main..origin/staging --grep="feat:\|fix:")
+
+          # Debug: Show matched commits
+          echo "Matched commits:"
+          echo "$commits"
 
           # Check if there are any relevant commits
           if [ -z "$commits" ]; then
