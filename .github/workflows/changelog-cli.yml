@@ -8,6 +8,11 @@ on:
       - opened
       - synchronize
 
+# Add these permissions
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   changelog:
     runs-on: ubuntu-latest
