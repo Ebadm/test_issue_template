@@ -90,7 +90,7 @@ jobs:
           current_date=$(date '+%Y-%m-%d')
 
           # Initialize changelog with the version header using the version from constants
-          changelog="### Version ${VERSION#v} (${current_date})\n\n"
+          changelog="# v${{ steps.get_version.outputs.version }} [${current_date}]\n\n"
 
           # Separate commits into Features and Fixes
           features=""
