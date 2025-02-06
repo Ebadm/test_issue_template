@@ -1,3 +1,12 @@
+# v1.1.1 [2025-02-06]
+
+## Features
+- feat: add test ([b73f4d8](https://github.com/Ebadm/test_issue_template/commit/b73f4d8))
+
+## Fixes
+- fix: add another ([893827d](https://github.com/Ebadm/test_issue_template/commit/893827d))
+
+
 # v1.1.0 [2025-02-06]
 
 ## Features
