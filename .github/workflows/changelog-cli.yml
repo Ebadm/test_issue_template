@@ -95,11 +95,12 @@ jobs:
 
           # Loop through each commit and categorize
           while read -r commit; do
+            hash=$(echo "$commit" | cut -d' ' -f1)
             message=$(echo "$commit" | sed -E 's/^[a-f0-9]{7} //')
             if [[ "$message" =~ ^feat: ]]; then
-              features="$features- $message\n"
+              features="$features- $message ([${hash}](https://github.com/${GITHUB_REPOSITORY}/commit/${hash}))\n"
             elif [[ "$message" =~ ^fix: ]]; then
-              fixes="$fixes- $message\n"
+              fixes="$fixes- $message ([${hash}](https://github.com/${GITHUB_REPOSITORY}/commit/${hash}))\n"
             fi
           done <<< "$commits"
 
