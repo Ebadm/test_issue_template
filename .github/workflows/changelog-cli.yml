@@ -113,6 +113,10 @@ jobs:
             changelog="$changelog## Fixes\n$fixes\n"
           fi
 
+          # Debug: Show what will be written to changelog
+          echo "Changelog content to be written:"
+          echo -e "$changelog"
+
           # Create or update CHANGELOG.md
           if [ ! -f CHANGELOG.md ]; then
             touch CHANGELOG.md
@@ -121,10 +125,26 @@ jobs:
           # Prepend the new changelog to the existing CHANGELOG.md
           sed -i "1s/^/$changelog\n/" CHANGELOG.md
 
+          # Debug: Show final CHANGELOG.md content
+          echo "Final CHANGELOG.md content:"
+          cat CHANGELOG.md
+
       - name: Commit and push changes
         run: |
-          # Check if there are changes in the changelog
-          git diff --exit-code CHANGELOG.md || git commit -am "Update changelog for ${{ steps.get_version.outputs.version }}"
+          # Switch to staging branch
+          git checkout staging
           
-          # Push the changes to the pull request branch
-          git push origin HEAD:refs/heads/${GITHUB_REF##*/}
+          # Debug: Show git status
+          git status
+          
+          # Stage only the CHANGELOG.md file
+          git add CHANGELOG.md
+          
+          # Debug: Show what's staged
+          git diff --staged
+          
+          # Check if there are changes in the changelog and commit only if there are changes
+          git diff --staged --quiet CHANGELOG.md || git commit -m "Update changelog for ${{ steps.get_version.outputs.version }}"
+          
+          # Push only to staging branch
+          git push origin staging
