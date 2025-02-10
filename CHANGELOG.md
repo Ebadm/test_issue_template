@@ -1,3 +1,14 @@
+# v1.1.1 [2025-02-10]
+
+## Features
+- feat: add test ([b73f4d8](https://github.com/Ebadm/test_issue_template/commit/b73f4d8))
+
+## Fixes
+- fix: github actions ([3d90883](https://github.com/Ebadm/test_issue_template/commit/3d90883))
+- fix: remove debugs and streamline ([0eba87d](https://github.com/Ebadm/test_issue_template/commit/0eba87d))
+- fix: add another ([893827d](https://github.com/Ebadm/test_issue_template/commit/893827d))
+
+
 # v1.1.1 [2025-02-06]
 
 ## Features
