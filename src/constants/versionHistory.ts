@@ -51,6 +51,19 @@ export interface VersionDetails {
                   'Country-specific beacon selection',
                   'Show warning to reload data when load date is changed'
               ]
+          },
+          '1': {
+              type: 'minor',
+              summary: [
+                  'New retail centres overlay for Morocco',
+                  'Percentile filtering in toolbar for data analysis',
+                  'Country-specific beacon selection',
+                  'Show warning to reload data when load date is changed'
+              ],
+              details: [
+                  'Country-specific overlays for GB and shopping centres for all countries',
+                  'Minor bug fixes and performance improvements'
+              ]
           }
       },
       '1.0': {
