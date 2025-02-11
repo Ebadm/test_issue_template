@@ -1,3 +1,9 @@
+# v1.1.1 [2025-02-11]
+
+## Features
+- feat: update changelog account ([7a06211](https://github.com/Ebadm/test_issue_template/commit/7a06211))
+
+
 # v1.1.1 [2025-02-10]
 
 ## Features
